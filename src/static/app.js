@@ -528,6 +528,18 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
       </p>
       ${capacityIndicator}
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <button class="share-button twitter-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter" aria-label="Share on Twitter">
+          <span class="share-icon" aria-hidden="true">🐦</span>
+        </button>
+        <button class="share-button facebook-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook" aria-label="Share on Facebook">
+          <span class="share-icon" aria-hidden="true">📘</span>
+        </button>
+        <button class="share-button email-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email" aria-label="Share via Email">
+          <span class="share-icon" aria-hidden="true">✉️</span>
+        </button>
+      </div>
       <div class="participants-list">
         <h5>Current Participants:</h5>
         <ul>
@@ -586,6 +598,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     }
+
+    // Add click handlers for share buttons
+    const twitterShareButton = activityCard.querySelector(".twitter-share");
+    const facebookShareButton = activityCard.querySelector(".facebook-share");
+    const emailShareButton = activityCard.querySelector(".email-share");
+
+    twitterShareButton.addEventListener("click", () => {
+      shareOnTwitter(name, details.description, formattedSchedule);
+    });
+
+    facebookShareButton.addEventListener("click", () => {
+      shareOnFacebook(name, details.description);
+    });
+
+    emailShareButton.addEventListener("click", () => {
+      shareViaEmail(name, details.description, formattedSchedule);
+    });
 
     activitiesList.appendChild(activityCard);
   }
@@ -854,6 +883,35 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error signing up:", error);
     }
   });
+
+  // Social sharing functions
+  function shareOnTwitter(activityName, description, schedule) {
+    const text = `Check out ${activityName} at Mergington High School! ${description} - ${schedule}`;
+    const url = window.location.href;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      text
+    )}&url=${encodeURIComponent(url)}`;
+    window.open(twitterUrl, "_blank", "noopener,noreferrer,width=550,height=420");
+  }
+
+  function shareOnFacebook(activityName, description) {
+    const url = window.location.href;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      url
+    )}&quote=${encodeURIComponent(
+      `Check out ${activityName} at Mergington High School! ${description}`
+    )}`;
+    window.open(facebookUrl, "_blank", "noopener,noreferrer,width=550,height=420");
+  }
+
+  function shareViaEmail(activityName, description, schedule) {
+    const subject = `Join me at ${activityName}!`;
+    const body = `Hi,\n\nI wanted to share this exciting activity with you:\n\n${activityName}\n${description}\n\nSchedule: ${schedule}\n\nCheck it out at: ${window.location.href}\n\nSee you there!`;
+    const mailtoUrl = `mailto:?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+  }
 
   // Expose filter functions to window for future UI control
   window.activityFilters = {
