@@ -891,7 +891,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text
     )}&url=${encodeURIComponent(url)}`;
-    window.open(twitterUrl, "_blank", "noopener,width=550,height=420");
+    window.open(twitterUrl, "_blank", "noopener,noreferrer,width=550,height=420");
   }
 
   function shareOnFacebook(activityName, description) {
@@ -901,7 +901,7 @@ document.addEventListener("DOMContentLoaded", () => {
     )}&quote=${encodeURIComponent(
       `Check out ${activityName} at Mergington High School! ${description}`
     )}`;
-    window.open(facebookUrl, "_blank", "noopener,width=550,height=420");
+    window.open(facebookUrl, "_blank", "noopener,noreferrer,width=550,height=420");
   }
 
   function shareViaEmail(activityName, description, schedule) {
