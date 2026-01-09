@@ -530,14 +530,14 @@ document.addEventListener("DOMContentLoaded", () => {
       ${capacityIndicator}
       <div class="share-buttons">
         <span class="share-label">Share:</span>
-        <button class="share-button twitter-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter">
-          <span class="share-icon">🐦</span>
+        <button class="share-button twitter-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter" aria-label="Share on Twitter">
+          <span class="share-icon" aria-hidden="true">🐦</span>
         </button>
-        <button class="share-button facebook-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
-          <span class="share-icon">📘</span>
+        <button class="share-button facebook-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook" aria-label="Share on Facebook">
+          <span class="share-icon" aria-hidden="true">📘</span>
         </button>
-        <button class="share-button email-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email">
-          <span class="share-icon">✉️</span>
+        <button class="share-button email-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email" aria-label="Share via Email">
+          <span class="share-icon" aria-hidden="true">✉️</span>
         </button>
       </div>
       <div class="participants-list">
@@ -891,7 +891,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
       text
     )}&url=${encodeURIComponent(url)}`;
-    window.open(twitterUrl, "_blank", "width=550,height=420");
+    window.open(twitterUrl, "_blank", "noopener,width=550,height=420");
   }
 
   function shareOnFacebook(activityName, description) {
@@ -901,7 +901,7 @@ document.addEventListener("DOMContentLoaded", () => {
     )}&quote=${encodeURIComponent(
       `Check out ${activityName} at Mergington High School! ${description}`
     )}`;
-    window.open(facebookUrl, "_blank", "width=550,height=420");
+    window.open(facebookUrl, "_blank", "noopener,width=550,height=420");
   }
 
   function shareViaEmail(activityName, description, schedule) {
