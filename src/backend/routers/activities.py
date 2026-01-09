@@ -27,7 +27,7 @@ def get_activities(
     - day: Filter activities occurring on this day (e.g., 'Monday', 'Tuesday')
     - start_time: Filter activities starting at or after this time (24-hour format, e.g., '14:30')
     - end_time: Filter activities ending at or before this time (24-hour format, e.g., '17:00')
-    - difficulty_level: Filter by difficulty level (e.g., 'Beginner', 'Intermediate', 'Advanced')
+    - difficulty_level: Filter by difficulty level (e.g., 'Beginner', 'Intermediate', 'Advanced', 'None' for activities without difficulty)
     """
     # Build the query based on provided filters
     query = {}
@@ -42,7 +42,11 @@ def get_activities(
         query["schedule_details.end_time"] = {"$lte": end_time}
     
     if difficulty_level:
-        query["difficulty_level"] = difficulty_level
+        if difficulty_level == "None":
+            # Filter for activities without a difficulty_level field
+            query["difficulty_level"] = {"$exists": False}
+        else:
+            query["difficulty_level"] = difficulty_level
     
     # Query the database
     activities = {}
